@@ -11,6 +11,6 @@ class Login_model extends CI_Model{
 	public function getUser($condn,$key){
 		$query="select * from users where $condn='$key'";
 		return $this->db->query($query);
-	}huihiug
+	}
 }
 ?>
