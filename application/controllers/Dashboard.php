@@ -13,9 +13,45 @@ class Dashboard extends CI_Controller {
 	}
 	
 	public function show(){
+		if($this->session->userdata('user_role_id')==6){
+			header("Location: ../request/loadPage");
+		}
+		else{
 		 	//add profile views if you want to show differnt profile views for different user roles
-			 $this->showProfile();
+		$notis=$this->Login_model->getRequestsForNotifications($this->session->userdata('user_id'));
+		
+		$details=$this->Login_model->getUserInfo($this->session->userdata('user_id'),$this->session->userdata('user_role_id'));
+		
+		$name=$details;
+		
+		$user=$this->Login_model->getUser('user_id',$this->session->userdata('user_id'));
+		
+		$data['requests']=implode($this->Login_model->getRequests($this->session->userdata('user_id')));
+		$data['requests_pending']=implode($this->Login_model->getRequestsPending($this->session->userdata('user_id')));
+		$data['requests_approved']=implode($this->Login_model->getRequestsApproved($this->session->userdata('user_id')));
+		$data['requests_papproved']=implode($this->Login_model->getRequestsPApproved($this->session->userdata('user_id')));
+		 $count=$this->Login_model->getCountForPendingNotification($this->session->userdata('user_id'));
+$data['count']=$count;
+	
+		$data['user']=$user->row_array();
+		$data['details']=$name;
+		$data['notis']=$notis;
+		
+		//*********SHOW NOTIFICATIONS*********
+		
+		
+		$data['title']="Dashboard || Activo";
+		$data['page']="Dashboard";
+				$this->load->view("includes/header.php",$data);
+        $this->load->view("includes/header-bp.php",$data);
+        $this->load->view("includes/left-sidebar.php",$data);
+      $this->load->view("includes/breadcrumb.php",$data);
+		$this->load->view("pages/dashboard.php",$data);
+        $this->load->view("includes/right-sidebar.php",$data);
+        $this->load->view("includes/footer.php",$data);
 		 }
+	}
+	
 	
 	public function showProfile(){
 		//set $data varibale here for page name and title
@@ -23,7 +59,22 @@ class Dashboard extends CI_Controller {
 		
 		//load view to show profile of the user
 		
+
+		
+		$user=$this->Login_model->getUser('user_id',$this->session->userdata('user_id'));
+		$data['user']=$user->row_array();
+		 $count=$this->Login_model->getCountForPendingNotification($this->session->userdata('user_id'));
+$data['count']=$count;
+		
+		
+			$this->load->view("includes/header.php",$data);
+        $this->load->view("includes/header-bp.php",$data);
+        $this->load->view("includes/left-sidebar.php",$data);
+        $this->load->view("includes/breadcrumb.php",$data);
+		$this->load->view("pages/request-item.php",$data);
+//        $this->load->view("includes/right-sidebar.php",$data);
+        $this->load->view("includes/footer.php",$data);
 	}
-	}
+	
 }
 ?>
