@@ -145,6 +145,7 @@
     <script src="assets/vendors/datatables/datatables.min.js"></script>
     <script src="assets/vendors/text-heading/Animated-Type-Heading.js"></script>
     <script src="assets/global/js/main.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </body>
 <!--END OF BODY which has been started in header.php-->

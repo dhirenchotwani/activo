@@ -30,6 +30,7 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="../../assets/js/custom.js"></script>
     <script src="../../assets/js/manage_request.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body><!--END OF BODY which has been started in header.php-->
 
 </html>

@@ -16,7 +16,7 @@ class Request extends CI_Controller{
 	public function loadPage(){
 		$user=$this->Login_model->getUser('user_id',$this->session->userdata('user_id'));
 	$data['user']=$user->row_array();
-		$data['title']="Request Item | Activo";
+		$data['title']="Manage Requests || Activo";
        echo $this->session->userdata("user_id");
 		$data['page']="Request";
 		if($this->session->userdata('user_role_id')==4 || $this->session->userdata('user_role_id')==5)
@@ -46,7 +46,7 @@ $data['count']=$count;
    public function loadAddRequest(){
 	   $user=$this->Login_model->getUser('user_id',$this->session->userdata('user_id'));
 	$data['user']=$user->row_array();
-       $data['title']="Request Item | Activo";
+       $data['title']="Request Item || Activo";
 	$data['page']="Request";
        
        $notis=$this->Login_model->getRequestsForNotifications($this->session->userdata('user_id'));
@@ -83,7 +83,7 @@ $data['notis']=$notis;
 		  
 		 $count=$this->Login_model->getCountForPendingNotification($this->session->userdata('user_id'));
 $data['count']=$count;
-       $data["title"] = "REGISTRATION || MANAGE REQUEST";
+       $data["title"] = "Manage requests || Activo";
        
 		$this->load->view("includes/header.php",$data);
         $this->load->view("includes/header-bp.php",$data);
@@ -99,8 +99,10 @@ $data['count']=$count;
        
      $d =  $this->input->post("item_name[]");
     $d1 = $this->input->post("quantity[]");
-       var_dump($d);
-       var_dump($d1);
+//       var_dump($d);
+//       var_dump($d1);
+	  $this->Request_Model->add_request($this->session->userdata('user_id'),$d,$d1);
+	   $this->loadHistory();
    }
 	
 	public function loadHistory(){

@@ -37,7 +37,7 @@ $this->db->update('users', $data);
 	}
 	
 	public function getRequestsForNotifications($id){
-		$query="select * from request where request.user_id=$id and is_new=0";
+		$query="select * from request where request.user_id=$id and is_new=0 ORDER BY created_at DESC";
 		$query=$this->db->query($query);
 		return $query->result_array();
 	}

@@ -100,12 +100,12 @@
         return  $this->db->insert_id();
 	   }
        
-       public function add_request($d,$d1){
-          $user_id = $this->session->userdata("user_id");
+       public function add_request($user_id,$d,$d1){
+         
            $i=0;
            
-               $query = "INSERT INTO request (user_id,request_status,is_news) VALUES ($user_id,0,1)";
-           
+               $query = "INSERT INTO request (user_id,request_status,is_new) VALUES ($user_id,0,0)";
+           $this->db->query($query);
            $request_id = $this->db->insert_id();
            while($i<sizeof($d)){
            $query = "INSERT INTO request_item (request_id,item_id,quantity) VALUES ($request_id,$d[$i],$d1[$i])";

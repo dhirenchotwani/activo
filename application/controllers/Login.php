@@ -31,8 +31,8 @@ class Login extends CI_Controller {
 		
 	
 		 }else
-			
-		$this->load->view("pages/login2");
+			$data['title']="Login ||  Activo";
+		$this->load->view("pages/login2",$data);
 	 }
 	
 	public function logout(){
@@ -94,7 +94,7 @@ class Login extends CI_Controller {
 				}
 			}//end of main if
 			else{
-				
+				$_SESSION['status']="FAILURE";
 				$url="../..";
 			}
 		}//end of super if
@@ -150,8 +150,14 @@ class Login extends CI_Controller {
             <h4>Sincerely,</h4>
             <h5>The Activo Team.</h5>
             </div>";
-
-        $mailer->send_mail($user_email, $body, $subject);
+		
+        $boolean=$mailer->send_mail($user_email, $body, $subject);
+			if($boolean){
+				$_SESSION['status']="SUCCESSMAIL";
+				header("Location: ../..");
+			}
+			else
+				$_SESSION['status']="FAILUREMAIL";
 		}
 	}
 	
